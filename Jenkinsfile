@@ -8,9 +8,7 @@ pipeline {
     stages {
         stage("Build mvn project") {
             steps {
-              script {
-                mvn release:prepare -Dresume=false -Darguments="-Dmaven.deploy.skip.true"
-            }
+               bat 'mvn release:prepare -Dresume=false -Darguments="-Dmaven.deploy.skip.true"'
         }
         stage("Build container image") {
             steps {
@@ -27,9 +25,11 @@ pipeline {
                     echo "${octoken}"
                     echo "${version}"
                     echo "${gitUrl}"
+                    bat """
                         oc login -u developer -p developer
                         oc apply -f target/tmp/resources/buildconfig.yaml
                         oc start-build demo-jenkins --follow
+                     """
                 }
             }
         }

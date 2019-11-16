@@ -1,7 +1,5 @@
 pipeline {
-    agent {
-         none
-    }
+    agent none
     tools {
         oc "oc3.11.0"
         maven "Maven 3.3.9"

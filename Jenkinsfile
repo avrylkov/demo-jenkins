@@ -27,17 +27,8 @@ pipeline {
                     echo "${octoken}"
                     echo "${version}"
                     echo "${gitUrl}"
-                        # Переодпределяем расположение файла конфигурации куда будет записан токен, чтобы потом его удалить
-                        # и не светить в основном файле
-                        export KUBECONFIG=./config
-                        #Логинимся
-                        #oc login ${ochost} --token=${octoken} --insecure-skip-tls-verify
                         oc login -u developer -p developer
-                        #Заходим в своё пространство
-                        #oc project autoscheduler
-                        #Делаем импорт buildconfig
                         oc  apply -f target/tmp/resources/buildconfig.yaml
-                        #Стартуем buildconfig загруженный
                         oc start-build demo-jenkins --follow
                 }
             }

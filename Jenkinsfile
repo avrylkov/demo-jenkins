@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage("Build mvn project") {
             steps {
-                sh 'mvn -s "C:/Program Files/JetBrains/IntelliJ IDEA 2018.1.6/plugins/maven/lib/maven3/conf/settings.xml" release:prepare -Dresume=false -Darguments="-Dmaven.deploy.skip.true"'
+                mvn -s "C:/Program Files/JetBrains/IntelliJ IDEA 2018.1.6/plugins/maven/lib/maven3/conf/settings.xml" release:prepare -Dresume=false -Darguments="-Dmaven.deploy.skip.true"
             }
         }
         stage("Build container image") {
@@ -26,7 +26,7 @@ pipeline {
                     echo "${octoken}"
                     echo "${version}"
                     echo "${gitUrl}"
-                    sh """
+                    #sh """
                         # Переодпределяем расположение файла конфигурации куда будет записан токен, чтобы потом его удалить
                         # и не светить в основном файле
                         export KUBECONFIG=./config
@@ -39,7 +39,6 @@ pipeline {
                         oc  apply -f target/tmp/resources/buildconfig.yaml
                         #Стартуем buildconfig загруженный
                         oc start-build demo-jenkins --follow
-                    """
                 }
             }
         }

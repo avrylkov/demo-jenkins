@@ -9,6 +9,7 @@ pipeline {
         stage("Build mvn project") {
             steps {
                bat 'mvn release:prepare -Dresume=false -Darguments="-Dmaven.deploy.skip.true"'
+             }
         }
         stage("Build container image") {
             steps {

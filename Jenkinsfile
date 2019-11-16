@@ -9,7 +9,7 @@ pipeline {
         stage("Build mvn project") {
             steps {
               script {
-                mvn -s "C:/Program Files/JetBrains/IntelliJ IDEA 2018.1.6/plugins/maven/lib/maven3/conf/settings.xml" release:prepare -Dresume=false -Darguments="-Dmaven.deploy.skip.true"
+                mvn release:prepare -Dresume=false -Darguments="-Dmaven.deploy.skip.true"
             }
         }
         stage("Build container image") {

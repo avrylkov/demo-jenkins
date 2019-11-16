@@ -28,7 +28,7 @@ pipeline {
                     echo "${version}"
                     echo "${gitUrl}"
                         oc login -u developer -p developer
-                        oc  apply -f target/tmp/resources/buildconfig.yaml
+                        oc apply -f target/tmp/resources/buildconfig.yaml
                         oc start-build demo-jenkins --follow
                 }
             }

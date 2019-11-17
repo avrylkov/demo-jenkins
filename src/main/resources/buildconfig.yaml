@@ -34,6 +34,6 @@ spec:
         - name: version
       from:
         kind: DockerImage
-        name: 'redhat-openjdk18-openshift:1.3'
+        name: 'java:8'
     type: Docker
   successfulBuildsHistoryLimit: 5

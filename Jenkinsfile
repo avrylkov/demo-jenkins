@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage("Build mvn project") {
             steps {
-               bat 'mvn release:prepare -Dresume=false -Darguments="-Dmaven.deploy.skip.true"'
+               bat 'mvn package -Dresume=false -DskipTests=true -Darguments="-Dmaven.deploy.skip.true"'
              }
         }
         stage("Build container image") {

@@ -23,7 +23,7 @@ spec:
   runPolicy: Serial
   source:
     git:
-      ref: release
+      ref: master
       uri: 'https://github.com/avrylkov/demo-jenkins.git'
     #sourceSecret:
     #  name: openshift-git-secret-key

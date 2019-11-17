@@ -1,4 +1,4 @@
-FROM java:8
+FROM openjdk:8-jdk-alpine
 VOLUME /tmp
 ADD /target/demo-jenkins-0.0.1-SNAPSHOT.jar /deployments/demo-jenkins-app.jar
 ENV JAVA_OPTS=""

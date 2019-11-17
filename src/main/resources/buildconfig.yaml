@@ -13,7 +13,7 @@ spec:
     #  name: ci00983051-prom
     to:
       kind: DockerImage
-      name: avrylkov/demo-jenkins:${project.version}
+      name: avrylkov/demo-jenkins-0.0.1-SNAPSHOT.jar
   postCommit: {}
   resources:
     limits:

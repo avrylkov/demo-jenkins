@@ -17,7 +17,7 @@ pipeline {
                     bat """
                         set KUBECONFIG=C:/Users/Rylkov-AV/.kube/config
                         # oc login -u developer -p developer
-                        oc login https://192.168.99.100:8443 --insecure-skip-tls-verify
+                        oc login https://192.168.99.100:8443 --token=ibeg4gfZ5S8KaUmn8X-4GpOLqsu6azgxF0-5Ydf6dcI
                         oc apply -f target/tmp/resources/buildconfig.yaml
                         oc start-build demo-jenkins --follow
                      """

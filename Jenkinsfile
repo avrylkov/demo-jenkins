@@ -15,7 +15,7 @@ pipeline {
             steps {
                 script {
                     bat """
-                        set KUBECONFIG=C:\Users\Rylkov-AV\.kube\config
+                        set KUBECONFIG=C:/Users/Rylkov-AV/.kube/config
                         # oc login -u developer -p developer
                         oc login https://192.168.99.100:8443 --insecure-skip-tls-verify
                         oc apply -f target/tmp/resources/buildconfig.yaml

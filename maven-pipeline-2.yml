@@ -43,23 +43,23 @@ objects:
 - apiVersion: v1
   kind: ImageStream
   metadata:
-    name: java
+    name: java8
   spec:
     tags:
     - annotations:
         supports: jee,java
         tags: builder,java
-        version: "10.1"
+        version: "8"
       from:
         kind: DockerImage
-        name: openshift/redhat-openjdk18-openshift:latest
-      name: "10.1"
+        name: openjdk:8-jdk-alpine
+      name: "8"
     - annotations:
         supports: jee,java
         tags: builder,java
       from:
         kind: ImageStreamTag
-        name: "10.1"
+        name: "8"
       name: latest
 - apiVersion: v1
   kind: BuildConfig
@@ -89,7 +89,7 @@ objects:
                   stage("Checkout") {
                     git url: "${GIT_SOURCE_URL}", branch: "${GIT_SOURCE_REF}"
                   }
-                  stage("Build WAR") {
+                  stage("Build Jar") {
                     sh "mvn clean package -DskipTests=true -Popenshift"
                     stash name:"jar", includes:"target/demo-jenkins-0.0.1-SNAPSHOT.jar"
                   }
@@ -171,17 +171,18 @@ objects:
     runPolicy: Serial
     source:
       dockerfile: |-
-        FROM wildfly
-        COPY ROOT.war /wildfly/standalone/deployments/ROOT.war
-        CMD $STI_SCRIPTS_PATH/run
+        FROM java8
+        COPY /target/demo-jenkins-0.0.1-SNAPSHOT.jar /deployments/demo-jenkins-app.jar
+        ENV JAVA_OPTS=""
+        ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /demo-jenkins-app.jar" ]
       binary:
-        asFile: ROOT.war
+        asFile: demo-jenkins-app.jar
       type: Docker
     strategy:
       dockerStrategy:
         from:
           kind: ImageStreamTag
-          name: wildfly:latest
+          name: java8:latest
       type: Docker
     triggers: []
 - apiVersion: v1
